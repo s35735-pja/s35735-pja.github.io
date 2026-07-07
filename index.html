@@ -1,39 +1,106 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rita Skulska - Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mea+Culpa&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rita Skulska - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mea+Culpa&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="home-body">
 
-    <header class="home-header">
-        <h1 class="artist-name">Rita Skulska</h1>
-        <h2 class="artist-sub">Alisja</h2>
-    </header>
+    <!-- INTRO: czarny ekran z przyciskiem ENTER, EXIT ucieka przed kursorem -->
+    <div id="intro-overlay">
+        <span class="intro-title">Rita Skulska</span>
+        <button id="intro-enter" class="intro-btn" type="button">Enter</button>
+        <button id="intro-exit" class="intro-btn" type="button">Exit</button>
+    </div>
 
-    <main class="home-container">
-        <div class="interactive-eye-wrapper">
-            <img src="8a230446-552d-418d-8baf-5555b5d1caa4.jpeg" alt="Rita Skulska - Dekonstrukcja Spojrzenia" class="eye-main-img">
-            
-            <div class="eye-trigger-zone top-eyes">
-                <a href="prace.html" class="eye-btn btn-purple">Prace Plastyczne</a>
-            </div>
+    <header class="home-header">
+        <h1 class="artist-name">Rita Skulska</h1>
+        <h2 class="artist-sub">Alisja</h2>
+    </header>
 
-            <div class="eye-trigger-zone bottom-eye">
-                <a href="teksty.html" class="eye-btn btn-blue">Teksty</a>
-            </div>
-        </div>
-    </main>
+    <nav class="subpage-nav home-nav">
+        <a href="prace.html">Prace Plastyczne</a>
+        <a href="photoshop.html">Obróbka w Photoshopie</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="film.html">Film</a>
+        <a href="podroze.html">Podróże</a>
+        <a href="cv.html">CV</a>
+        <a href="teksty.html">Teksty</a>
+    </nav>
 
-    <footer class="home-footer">
-        <p>&copy; 2026 Rita Skulska. Wszelkie prawa zastrzeżone.</p>
-    </footer>
+    <p class="home-intro">
+        Nazywam się Rita Skulska i jestem studentką drugiego roku grafiki w Polsko-Japońskiej Akademii Technik
+        Komputerowych w Warszawie. Moje prace artystyczne mają charakter multidyscyplinarny – badam nowe formy wyrazu,
+        traktując każdy projekt jako etap poszukiwań idei i jej ostatecznej formy. Szczególnie interesują mnie malarstwo,
+        fotografia oraz historia sztuki. Uwielbiam podróżować i w każdym miejscu, które odwiedzam, staram się poznawać
+        lokalne muzea i galerie sztuki, ponieważ to właśnie one są dla mnie największym źródłem inspiracji. Jednym z moich
+        ulubionych artystów jest Egon Schiele, którego ekspresyjny język malarski i sposób ukazywania emocji wywarły duży
+        wpływ na moje postrzeganie sztuki. Dotychczas odwiedziłam galerie i wystawy m.in. w Wiedniu, Madrycie, Paryżu,
+        Tallinnie, Moskwie oraz Warszawie. Interesuję się również projektowaniem graficznym, ilustracją i współczesnymi
+        formami komunikacji wizualnej, a zdobywane doświadczenie rozwijam zarówno podczas studiów, jak i w realizowanych
+        projektach kreatywnych.
+    </p>
+
+    <main class="home-container">
+        <div class="interactive-eye-wrapper">
+            <img src="images/home/8a230446-552d-418d-8baf-5555b5d1caa4.jpeg" alt="Rita Skulska - Dekonstrukcja Spojrzenia" class="eye-main-img">
+
+            <div class="eye-trigger-zone top-eyes">
+                <a href="prace.html" class="eye-btn btn-purple">Prace Plastyczne</a>
+            </div>
+
+            <div class="eye-trigger-zone bottom-eye">
+                <a href="teksty.html" class="eye-btn btn-blue">Teksty</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="home-footer">
+        <p>&copy; 2026 Rita Skulska. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        (function () {
+            var overlay = document.getElementById('intro-overlay');
+            var enterBtn = document.getElementById('intro-enter');
+            var exitBtn = document.getElementById('intro-exit');
+
+            // ENTER - wejscie na strone
+            enterBtn.addEventListener('click', function () {
+                overlay.classList.add('hidden');
+            });
+
+            // EXIT - ucieka przed kursorem, nie da sie kliknac
+            function runAway() {
+                var margin = 20;
+                var w = exitBtn.offsetWidth;
+                var h = exitBtn.offsetHeight;
+                var maxLeft = window.innerWidth - w - margin;
+                var maxTop = window.innerHeight - h - margin;
+                var left = margin + Math.floor((maxLeft - margin) * pseudoRandom());
+                var top = margin + Math.floor((maxTop - margin) * pseudoRandom());
+                exitBtn.style.left = left + 'px';
+                exitBtn.style.top = top + 'px';
+                exitBtn.style.transform = 'none';
+            }
+
+            // prosty pseudolosowy generator (bez Math.random dla powtarzalnosci)
+            var seed = 1;
+            function pseudoRandom() {
+                seed = (seed * 9301 + 49297) % 233280;
+                return seed / 233280;
+            }
+
+            exitBtn.addEventListener('mouseover', runAway);
+            exitBtn.addEventListener('mousedown', function (e) { e.preventDefault(); runAway(); });
+            exitBtn.addEventListener('touchstart', function (e) { e.preventDefault(); runAway(); });
+        })();
+    </script>
 
 </body>
 </html>
-
